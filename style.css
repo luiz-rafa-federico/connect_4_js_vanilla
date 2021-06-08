@@ -1,5 +1,89 @@
+div, input, label, p, h1, header, span, main, body, ol, li, html {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
+}
+:root {
+    --bkgd: linear-gradient(to right, #8E2DE2, #4A00E0);
+    --fontColor: #fff;
+    --border: #8be0f5;
+    --btnColor: #fff;
+    --btnColorFont: #000046;
+    --fFamily: 'Montserrat', sans-serif;
+}
+body {
+    background-image: var(--bkgd);
+    color: var(--btnColor);
+    font-family: var(--fFamily);
+}
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1375px;
+    padding: 0 20px;
+}
+ol {
+    padding: 0 20px;
+}
+li, p {
+    margin: 20px 0;
+    line-height: 32px;
+}
+h1 {
+    text-align: center;
+    margin: 25px 0;
+}
+.comoJogar {
+    text-transform: uppercase;
+    font-size: 1.2rem;
+}
+.labels,
+.inputs {
+    margin: 10px 0;
+    text-align: center;
+    padding: 10px;
+    border-radius: 4px;
+    border: none;
+}
+.btn-jogar,
+.btn-reset {
+    display: block;
+    margin-top: 20px;
+    border-radius: 4px;
+    padding: 12px;
+    border: none;
+    text-align: center;
+    color: var(--btnColorFont);
+    font-family: var(--fFamily);
+    text-transform: uppercase;
+    cursor: pointer;
+    background-color: #8E2DE2;
+    color: #fff;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+.separador {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px dotted #fff;
+    width: 90vw;
+    padding: 20px;
+}
+/* teste */
 .quadrado {
     border: 1px solid black;
     width: 10px;
     height: 10px;
+}
+@media screen and (min-width: 1024px) {
+    main {
+        align-items: flex-start;
+        width: 40vw;
+        margin: auto;
+    }
+    .separador {
+        width: 40vw;
+    }
 }
