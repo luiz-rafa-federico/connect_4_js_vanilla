@@ -1,10 +1,13 @@
-// escolher quem vai jogar
-let segundo = 1;
-let primeiro = Math.floor(Math.random() * 2 + 1);
-if (primeiro === 1) {
-    segundo = 2;
-}
-// escolher quem vai jogar
+// Variáveis globais
+const mapa = [
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0]
+];
+// Variáveis globais
 
 //funçao para gerar as peças de cada jogador
 const gerarPecas = () => {
@@ -36,12 +39,34 @@ const gerarPecas = () => {
 };
 //funçao para gerar as peças de cada jogador
 
+// Construindo tabela
+const gerarTabela = () => {
+    for (let i = 0; i < mapa.length; i++) {
+        const tabela = document.getElementById('tabela');
+        let divLinha = i;
+        divLinha = document.createElement('div');
+        divLinha.style.display = 'flex';
+        divLinha.classList.add('divLinha');
+        tabela.appendChild(divLinha);
+
+        for (let j = 0; j < mapa[i].length; j++) {
+            let quadrado = mapa[i][j];
+            quadrado = document.createElement('div');
+            quadrado.classList.add('quadrado');
+            divLinha.appendChild(quadrado);
+        }
+    }
+};
+// Construindo tabela
 
 //handler para botao jogar
 const btn_jogar = document.getElementById("btn_jogar");
 btn_jogar.addEventListener("click", function() {
     const containerJogo = document.getElementById("jogo");
     containerJogo.classList.remove("displayNone");
-    gerarPecas();
+    setTimeout(function() {
+        gerarTabela();
+        gerarPecas();
+    }, 1000);
 });
 //handler para botao jogar
