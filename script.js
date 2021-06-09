@@ -118,9 +118,13 @@ const verificaVitoria = () => {
 }
 
 // Condição de vitória (sem array de possibilidades)
-let vitoriaHorizontal = false;
-let vitoriaVertical = false;
-let vitoriaDiagonal = false;
+// let vitoriaHorizontal = false;
+// let vitoriaVertical = false;
+// let vitoriaDiagonal = false;
+// André e Priscila, comentei estas 3 linhas pois estavam quebrando o codigo
+// estão definindo variáveis aqui em cima, e depois estão definindo como
+// função novamente, não apaguei pra vocês não ficarem perdidos depois
+// mas dêem uma olhada nisso...
 
 
 const vitoriaHorizontal = () => {
