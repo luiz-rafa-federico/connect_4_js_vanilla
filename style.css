@@ -243,5 +243,16 @@ h1 {
     border-radius: 50%;
 }
 
+.pecaJogador1,
+.pecaJogador2 {
+    animation-name: caindo;
+    animation-duration: 2s;
+    transition-timing-function: ease-in-out;
+}
+
+@keyframes caindo {
+   from{transform: translateX(132px)}
+    to {transform: translateX(0)}
+}
 
 /* css para conteúdo dinâmico */
