@@ -12,8 +12,10 @@ const msgRetorno = document.getElementById("msgRetorno");
 // Variáveis globais
 
 //handler para botao jogar
-const btn_jogar = document.getElementById("btn_jogar");
-btn_jogar.addEventListener("click", function() {
+const btn_jogar = document.getElementById("btn_jogar")
+btn_jogar.disabled = false;
+btn_jogar.addEventListener("click", () => {
+    btn_jogar.disabled = true;
     const containerJogo = document.getElementById("jogo");
     containerJogo.classList.remove("displayNone");
     setTimeout(function() {
@@ -250,7 +252,31 @@ const declaraVitoria = () => {
     }
 }
 
-
-
-
 // Condição de vitória (sem array de possibilidades)
+
+//RESET JOGO
+document.getElementById('btn_recomecar').addEventListener('click', () => {
+    btn_jogar.disabled = false;
+    let pecasJog1 = document.querySelector('#pecasJogador1');
+    let pecasJog2 = document.querySelector('#pecasJogador2');
+    pecasJog1.innerText = "";
+    // pecasJog1.style.border = 'none';
+    pecasJog2.innerText = "";
+    // pecasJog2.style.border = 'none';
+
+    document.querySelector('#tabela').innerHTML = "";
+    for(let i = 0; i < mapa.length; i++) {
+        for(let j = 0; j < mapa[i].length; j++) {
+            mapa[i][j] = 0;
+        }
+    }
+    document.getElementById("myForm").reset();
+    document.querySelector('#msgRetorno').innerHTML = "";
+});
+//RESET JOGO
+
+
+
+
+
+  
