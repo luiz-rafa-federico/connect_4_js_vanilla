@@ -7,7 +7,9 @@
 
 .containerTabela {
     width: 100%;
-    height: 80%;
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .displayNone {
@@ -25,7 +27,7 @@
     height: 100%;
     display: flex;
     flex-wrap: wrap;
-    border: 2px solid red;
+    border: 1px dotted #fff
 }
 
 .pecaJogador1 {
@@ -37,7 +39,7 @@
     height: 100%;
     display: flex;
     flex-wrap: wrap;
-    border: 2px solid black;
+    border: 1px dotted #fff;
 }
 
 .pecaJogador2 {
@@ -122,7 +124,6 @@ h1 {
 
 .btn-jogar,
 .btn-reset {
-    display: block;
     margin-top: 20px;
     border-radius: 4px;
     padding: 12px;
@@ -142,17 +143,15 @@ h1 {
     flex-direction: column;
     align-items: center;
     border: 1px dotted #fff;
+    border-radius: 4px;
     width: 90vw;
     padding: 20px;
 }
 
-
-/* teste */
-
 .quadrado {
-    border: 1px solid black;
-    width: 10px;
-    height: 10px;
+    border: 1px dotted #fff;
+    width: 20px;
+    height: 20px;
 }
 
 @media screen and (min-width: 1024px) {
@@ -163,6 +162,14 @@ h1 {
     }
     .separador {
         width: 40vw;
+    }
+    .quadrado,
+    .pecas {
+        width: 40px;
+        height: 40px;
+    }
+    .containerTabela {
+        width: 105%;
     }
 }
 

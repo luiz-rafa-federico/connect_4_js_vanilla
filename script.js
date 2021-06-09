@@ -8,7 +8,6 @@ const mapa = [
     [0, 0, 0, 0, 0, 0, 0]
 ];
 // Variáveis globais
-
 //funçao para gerar as peças de cada jogador
 const gerarPecas = () => {
     const input1 = document.getElementById("jogador1").value;
@@ -70,3 +69,9 @@ btn_jogar.addEventListener("click", function() {
     }, 1000);
 });
 //handler para botao jogar
+
+// Botao reiniciar
+document.getElementById('btn_recomecar').addEventListener('click', () => {
+    location.reload();
+});
+
