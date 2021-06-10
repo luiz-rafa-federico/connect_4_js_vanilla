@@ -12,14 +12,20 @@ const msgRetorno = document.getElementById("msgRetorno");
 // Variáveis globais
 
 //handler para botao jogar
-const btn_jogar = document.getElementById("btn_jogar");
-btn_jogar.addEventListener("click", function() {
+const btn_jogar = document.getElementById("btn_jogar")
+btn_jogar.disabled = false;
+
+btn_jogar.addEventListener("click", () => {
+    document.querySelector(".regra1").style.display = 'none';
+    document.querySelector(".regra2").style.display = 'none';
+    document.querySelector(".regra3").style.display = 'none';
     const containerJogo = document.getElementById("jogo");
     containerJogo.classList.remove("displayNone");
     setTimeout(function() {
         gerarTabela();
         gerarPecas();
     }, 1000);
+    btn_jogar.disabled = true;
 });
 //handler para botao jogar
 
@@ -51,10 +57,12 @@ const gerarPecas = () => {
     pecasJogador1.innerHTML = '';
     const nomeJogador1 = document.createElement("p");
     nomeJogador1.innerText = input1;
+    nomeJogador1.classList.add('jogNome1');
     pecasJogador1.appendChild(nomeJogador1);
     const pecasJogador2 = document.getElementById("pecasJogador2");
     pecasJogador2.innerHTML = '';
     const nomeJogador2 = document.createElement("p");
+    nomeJogador2.classList.add('jogNome2');
     nomeJogador2.innerText = input2;
     pecasJogador2.appendChild(nomeJogador2);
 
@@ -250,7 +258,30 @@ const declaraVitoria = () => {
     }
 }
 
-
-
-
 // Condição de vitória (sem array de possibilidades)
+
+//RESET JOGO
+document.getElementById('btn_recomecar').addEventListener('click', () => {
+    btn_jogar.disabled = false;
+    let pecasJog1 = document.querySelector('#pecasJogador1');
+    let pecasJog2 = document.querySelector('#pecasJogador2');
+    pecasJog1.innerText = "";
+    pecasJog2.innerText = "";
+   
+    document.querySelector('#tabela').innerHTML = "";
+    for(let i = 0; i < mapa.length; i++) {
+        for(let j = 0; j < mapa[i].length; j++) {
+            mapa[i][j] = 0;
+        }
+    }
+    document.getElementById("myForm").reset();
+    document.querySelector('#msgRetorno').innerHTML = "";
+    btn_jogar.innerText = 'Jogar Novamente!'
+});
+//RESET JOGO
+
+
+
+
+
+  

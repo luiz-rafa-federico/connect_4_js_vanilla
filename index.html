@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Open+Sans&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -17,12 +19,12 @@
     </header>
 
     <main>
-        <p>
+        <p class="regra1">
             O Lig-4 foi desenvolvido para dois jogadores. Neste jogo, os jogadores devem colocar as fichas estrategicamente na base, de forma a construir uma sequência com as 4 fichas da sua cor (em qualquer direção), ao mesmo tempo em que devem prestar atenção para
             bloquear as tentativas do oponente fazer o mesmo!
         </p>
-        <p class="comoJogar">Como jogar?</p>
-        <ol>
+        <p class="comoJogar regra2">Instruções</p>
+        <ol class="regra3">
             <li>Cada jogador deve inserir seu nome nos quadros indicados abaixo</li>
             <li>Cada jogada consiste em escolher em qual coluna sua peça será posicionada</li>
             <li>As peças sempre são colocadas na última célula vazia da coluna escolhida</li>
@@ -31,12 +33,16 @@
             <li>Clique em JOGAR! para saber quem começará o jogo e qual será a cor da sua ficha!</li>
         </ol>
        <div class="separador">
-            <label class="label" for="jogador1">JOGADOR 1</label>
-            <input class="inputs" type="text" name="jogador1" id="jogador1" placeholder="Escreva seu nome aqui">
-            <label class="label" for="jogador2">JOGADOR 2</label>
-            <input class="inputs" type="text" name="jogador2" id="jogador2" placeholder="Escreva seu nome aqui">
-            <button class="btn-jogar" id="btn_jogar">Jogar!</button>
-            <button class="btn-reset" id="btn_recomecar">Recomeçar</button>
+           <form id="myForm" action="">
+                <label class="label" for="jogador1">JOGADOR 1</label>
+                <input class="inputs" type="text" name="jogador1" id="jogador1" placeholder="Escreva seu nome aqui">
+                <label class="label" for="jogador2">JOGADOR 2</label>
+                <input class="inputs" type="text" name="jogador2" id="jogador2" placeholder="Escreva seu nome aqui">
+            </form>
+            <div class="botoes">
+            <button class="btn-jogar" id="btn_jogar" disabled>Jogar!</button>
+            <button class="btn-reset" id="btn_recomecar">Limpar tabuleiro</button>
+            </div>
         </div>
         <div class="displayNone" id="jogo">
             <div id="msgRetorno"></div>
