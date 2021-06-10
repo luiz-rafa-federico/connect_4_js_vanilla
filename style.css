@@ -132,6 +132,14 @@ h1 {
     padding: 20px;
 }
 
+.botoes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
 /* teste nova organização da tabela */
 
 #tabela {
@@ -249,5 +257,10 @@ h1 {
    .containerTabela {
        width: 80%;
        margin: auto;
+   }
+   .botoes {
+       flex-direction: row;
+       justify-content: space-around;
+       width: 40%;
    }
 }
