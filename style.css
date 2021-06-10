@@ -1,5 +1,3 @@
-/* css para conteúdo chumbado */
-
 div,
 input,
 label,
@@ -12,179 +10,333 @@ body,
 ol,
 li,
 html {
-    margin: 0;
-    padding: 0;
-    outline: 0;
-    box-sizing: border-box;
+   margin: 0;
+   padding: 0;
+   outline: 0;
+   box-sizing: border-box;
 }
-
+ 
 :root {
-    --bkgd: linear-gradient(to right, #8E2DE2, #4A00E0);
-    --fontColor: #fff;
-    --border: #8be0f5;
-    --btnColor: #fff;
-    --btnColorFont: #000046;
-    --fFamily: 'Montserrat', sans-serif;
+   --bkgd: linear-gradient(to right, #8E2DE2, #4A00E0);
+   --fontColor: #fff;
+   --border: #8be0f5;
+   --btnFontColor: #fff;
+   --btnBkgdColor: #0934ED;
+   --fFamily: 'Open Sans', sans-serif;
+   --corJog1: #17E361;
+   --corJog2: #F024D2;
+   --divLinhaCor: #0934ED;
+   --larguraTabela: 132px;
+   --tamanhoPecas: 20px;
+   --tamanhoPecas-desktop: 40px;
+   --tamanhoQuadrado: 22px;
+   --tamanhoQuadrado-desktop: 44px;
+   --larguraTabelaDesktop: 264px;
 }
-
+ 
+/* css para conteúdo chumbado */
 body {
-    background-image: var(--bkgd);
-    color: var(--btnColor);
-    font-family: var(--fFamily);
+   /* background-image: url('./imgs/autumn-studio-221wufG10eg-unsplash.jpg'); */
+   background-image: var(--bkgd);
+   background-size: cover;
+   color: var(--fontColor);
+   font-family: var(--fFamily);
 }
-
+ 
 main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 1375px;
-    padding: 0 20px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   max-width: 1375px;
+   padding: 0 20px;
 }
-
+ 
 ol {
-    padding: 0 20px;
+   padding: 0 20px;
 }
-
+ 
 li,
 p {
-    margin: 20px 0;
-    line-height: 32px;
+   margin: 10px 0;
+   line-height: 32px;
 }
-
+ 
 h1 {
-    text-align: center;
-    margin: 25px 0;
+   text-align: center;
+   margin: 25px 0;
+   font-family: 'Kaushan Script', cursive;
+   font-size: 40px;
 }
-
+ 
 .comoJogar {
-    text-transform: uppercase;
-    font-size: 1.2rem;
+   text-transform: uppercase;
+   font-size: 1.2rem;
 }
-
+ 
 .labels,
 .inputs {
-    margin: 10px 0;
-    text-align: center;
-    padding: 10px;
-    border-radius: 4px;
-    border: none;
+   margin: 10px 20px;
+   text-align: center;
+   padding: 10px;
+   border-radius: 4px;
+   border: none;
 }
-
+ 
 .btn-jogar,
 .btn-reset {
-    display: block;
-    margin-top: 20px;
-    border-radius: 4px;
-    padding: 12px;
-    border: none;
-    text-align: center;
-    color: var(--btnColorFont);
-    font-family: var(--fFamily);
-    text-transform: uppercase;
-    cursor: pointer;
-    background-color: #8E2DE2;
-    color: #fff;
-    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+   margin-top: 20px;
+   border-radius: 4px;
+   padding: 12px;
+   border: none;
+   text-align: center;
+   font-family: var(--fFamily);
+   text-transform: uppercase;
+   cursor: pointer;
+   background-color: var(--btnBkgdColor);
+   color: var(--btnFontColor);
+   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
-
+ 
 .separador {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: 1px dotted #fff;
-    width: 90vw;
-    padding: 20px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   border: 1px dotted var(--border);
+   border-radius: 4px;
+   width: 90%;
+   padding: 20px;
+   text-align: center;
 }
-
-
-/* teste nova organização da tabela */
-
-#tabela {
-    width: 132px;
-    transform: rotate(-90deg);
+ 
+.botoes {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   width: 100%;
 }
-
-.divLinha {
-    width: 132px;
-    display: flex;
-    margin: 1px;
-    border: 1px solid yellow;
-}
-
-
-/* teste nova organização da tabela */
-
-
-/* teste */
-
-.quadrado {
-    border: 1px solid blue;
-    width: 22px;
-    height: 22px;
-}
-
-@media screen and (min-width: 1024px) {
-    main {
-        align-items: flex-start;
-        width: 40vw;
-        margin: auto;
-    }
-    .separador {
-        width: 40vw;
-    }
-}
-
-
 /* css para conteúdo chumbado */
-
-
+ 
 /* css para conteúdo dinâmico */
-
+#tabela {
+   width: var(--larguraTabela);
+   transform: rotate(-90deg);
+   align-self: center;
+}
+ 
+.divLinha {
+   width: var(--larguraTabela);
+   display: flex;
+   margin: 1px;
+   border: 1px solid var(--divLinhaCor);
+}
+ 
+#msgRetorno {
+   text-align: center;
+   /* text-transform: uppercase; */
+   margin: 20px auto;
+   font-size: 20px;
+   font-weight: bold;
+}
+ 
+.quadrado {
+   border: 1px solid var(--border);
+   width: var(--tamanhoQuadrado);
+   height: var(--tamanhoQuadrado);
+}
+ 
 #jogo {
-    width: 100%;
-    height: 500px;
+   width: 100%;
+   height: 500px;
 }
-
+ 
 .containerTabela {
-    width: 100%;
-    height: 80%;
+   width: 100%;
+   margin-top: 20px;
+   display: flex;
+   justify-content: space-between;
 }
-
+ 
+/* .containerTabela {
+   width: 100%;
+   height: 80%;
+} */
+ 
 .displayNone {
-    display: none;
+   display: none;
 }
 
 .pecas {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
+   width: var(--tamanhoPecas);
+   height: var(--tamanhoPecas);
+   border-radius: 50%;
 }
-
+ 
 #pecasJogador1 {
-    width: 20%;
-    height: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    border: 2px solid red;
+   width: 10%;
+   height: 100%;
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: center;
+   align-items: center;
 }
-
+ 
 .pecaJogador1 {
-    background-color: black;
-    border-radius: 50%;
+   background-color: var(--corJog1);
+   border-radius: 50%;
 }
-
+ 
+.jogNome1,
+.jogNome2 {
+   width: 100%;
+   text-align: center;
+}
+ 
 #pecasJogador2 {
-    width: 20%;
-    height: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    border: 2px solid black;
+   width: 10%;
+   height: 100%;
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: center;
 }
-
+ 
 .pecaJogador2 {
-    background-color: red;
-    border-radius: 50%;
+   background-color: var(--corJog2);
+   border-radius: 50%;
+}
+ 
+.pecaJogador1,
+.pecaJogador2 {
+   animation-name: caindo;
+   animation-duration: 2s;
+   transition-timing-function: ease-in-out;
+}
+
+/* div.quadrado:nth-child(even){
+    background-image: url("../lig-4/madeira1.png");
+    background-size:cover;
+    background-repeat:no-repeat;
+    /* -webkit-transform: rotate(90deg); */
+/* }
+div.quadrado:nth-child(odd){
+    background-image: url("../lig-4/madeira2.jpg");
+    background-size:cover;
+    background-repeat:no-repeat; */
+    /* -webkit-transform: rotate(90deg); */
+
+/* } */
+
+/* div#tabela{
+    background-image: url("../lig-4/connect-4-wood-2.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    -webkit-transform: rotate(-90deg);
+    /* -moz-transform: rotate(270deg); */
+    /* height:fit-content;
+    z-index: 10;
+} */
+
+.placar-conteudo{
+    background-color: #fff;
+    border-radius: 10px;
+  
+    padding: 20px 30px;
+    text-align: center;
+  }
+  
+  .placar-conteudo span{
+    color: hsl(229, 25%, 31%);
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin: 0;
+  }
+  
+  .placar{
+    display: flex;
+    justify-content: space-around;
+  }
+
+  h4{
+    color: hsl(229, 64%, 46%);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin: 0;
+  }
+footer {
+    /* position:absolute;
+    bottom:0;
+    left:0;
+    right:0; */
+    margin: 10px;
+    padding: 0 10px;
+    margin-top: 50px;
+}
+
+footer p {
+    text-align: center;
+    color: white;
+    font-size: 10px;
+    line-height: 0;
 }
 
 
+@keyframes caindo {
+  from{
+      transform: translateX(var(--larguraTabela));
+   }
+   to {
+       transform: translateX(0);
+   }
+}
 /* css para conteúdo dinâmico */
+ 
+@media screen and (min-width: 450px) and (max-width: 768px) {
+   .separador {
+      width: 60%;
+      flex-wrap: wrap;
+      text-align: center;
+      flex-direction: row;
+   }
+}
+ 
+@media screen and (min-width: 1024px) {
+  main {
+      margin: auto;
+  }
+  .separador {
+      width: 70vw;
+ 
+  }
+  .containerTabela {
+      width: 80%;
+      margin: auto;
+  }
+  .botoes {
+      flex-direction: row;
+      justify-content: space-around;
+      width: 50%;
+  }
+  .quadrado {
+   border: 1px solid var(--border);
+   width: var(--tamanhoQuadrado-desktop);
+   height: var(--tamanhoQuadrado-desktop);
+}
+
+.pecas {
+   width: var(--tamanhoPecas-desktop);
+   height: var(--tamanhoPecas-desktop);
+   border-radius: 50%;
+}
+
+.divLinha {
+    width: var(--larguraTabelaDesktop);
+}
+#pecasJogador1,
+#pecasJogador2 {
+   width: 20%;
+}
+#msgRetorno {
+    margin-bottom: 100px;
+}
+
+}
