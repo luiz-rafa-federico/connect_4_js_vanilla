@@ -10,7 +10,7 @@ const mapa = [
 ];
 const msgRetorno = document.getElementById("msgRetorno");
 // Variáveis globais
-
+    document.querySelector(".placar").style.display = 'none';
 //handler para botao jogar
 const btn_jogar = document.getElementById("btn_jogar")
 btn_jogar.disabled = false;
@@ -18,8 +18,10 @@ btn_jogar.addEventListener("click", () => {
     document.querySelector(".regra1").style.display = 'none';
     document.querySelector(".regra2").style.display = 'none';
     document.querySelector(".regra3").style.display = 'none';
+    document.querySelector(".placar").style.display = 'flex';
     const containerJogo = document.getElementById("jogo");
     containerJogo.classList.remove("displayNone");
+
     setTimeout(function() {
         gerarTabela();
         gerarPecas();
@@ -76,6 +78,7 @@ const gerarPecas = () => {
     pecasJogador1.innerHTML = '';
     const nomeJogador1 = document.createElement("p");
     nomeJogador1.innerText = input1;
+    nomeJogador1.style.color ="#17E361";
     nomeJogador1.classList.add('jogNome1');
     pecasJogador1.appendChild(nomeJogador1);
     const pecasJogador2 = document.getElementById("pecasJogador2");
@@ -83,7 +86,12 @@ const gerarPecas = () => {
     const nomeJogador2 = document.createElement("p");
     nomeJogador2.classList.add('jogNome2');
     nomeJogador2.innerText = input2;
+    nomeJogador2.style.color ="#F024D2";
     pecasJogador2.appendChild(nomeJogador2);
+    const pontos1 = document.getElementById("pontos--j1");
+    pontos1.innerText = "Pontos " + input1;
+    const pontos2 = document.getElementById("pontos--j2");
+    pontos2.innerText = "Pontos " + input2; 
 
     for (let i = 1; i <= 2; i++) {
         for (let j = 0; j < 21; j++) {
@@ -98,9 +106,9 @@ const gerarPecas = () => {
     }
     primeiro = Math.floor(Math.random() * 2 + 1);
     if (primeiro === 1) {
-        msgRetorno.innerHTML = `${input1} começa jogando!`;
+        msgRetorno.innerHTML = `${input1} COMEÇA JOGANDO!`;
     } else {
-        msgRetorno.innerHTML = `${input2} começa jogando!`;
+        msgRetorno.innerHTML = `${input2} COMEÇA JOGANDO!`;
     }
 };
 //funçao para gerar as peças de cada jogador
