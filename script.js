@@ -8,7 +8,6 @@ const mapa = [
     [0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0]
 ];
-const msgRetorno = document.getElementById("msgRetorno");
 // Variáveis globais
 
 //handler para botao jogar
@@ -23,7 +22,7 @@ btn_jogar.addEventListener("click", () => {
     setTimeout(function() {
         gerarTabela();
         gerarPecas();
-    }, 1000);
+    }, 500);
     btn_jogar.disabled = true;
 });
 //handler para botao jogar
@@ -35,7 +34,6 @@ document.getElementById('btn_recomecar').addEventListener('click', () => {
     let pecasJog2 = document.querySelector('#pecasJogador2');
     pecasJog1.innerText = "";
     pecasJog2.innerText = "";
-
     document.querySelector('#tabela').innerHTML = "";
     for (let i = 0; i < mapa.length; i++) {
         for (let j = 0; j < mapa[i].length; j++) {
@@ -43,7 +41,7 @@ document.getElementById('btn_recomecar').addEventListener('click', () => {
         }
     }
     document.getElementById("myForm").reset();
-    document.querySelector('#msgRetorno').innerHTML = "";
+    retorno("");
     btn_jogar.innerText = 'Jogar Novamente!'
 });
 //handler RESET JOGO
@@ -71,15 +69,12 @@ let primeiro = 0;
 const gerarPecas = () => {
     const input1 = document.getElementById("jogador1").value;
     const input2 = document.getElementById("jogador2").value;
-
     const pecasJogador1 = document.getElementById("pecasJogador1");
-    pecasJogador1.innerHTML = '';
     const nomeJogador1 = document.createElement("p");
     nomeJogador1.innerText = input1;
     nomeJogador1.classList.add('jogNome1');
     pecasJogador1.appendChild(nomeJogador1);
     const pecasJogador2 = document.getElementById("pecasJogador2");
-    pecasJogador2.innerHTML = '';
     const nomeJogador2 = document.createElement("p");
     nomeJogador2.classList.add('jogNome2');
     nomeJogador2.innerText = input2;
@@ -98,12 +93,19 @@ const gerarPecas = () => {
     }
     primeiro = Math.floor(Math.random() * 2 + 1);
     if (primeiro === 1) {
-        msgRetorno.innerHTML = `${input1} começa jogando!`;
+        retorno(`${input1} começa jogando!`);
     } else {
-        msgRetorno.innerHTML = `${input2} começa jogando!`;
+        retorno(`${input2} começa jogando!`);
     }
 };
 //funçao para gerar as peças de cada jogador
+
+// função pra retornar msg jogadores
+const retorno = (str) => {
+    const msgRetorno = document.getElementById("msgRetorno");
+    msgRetorno.innerHTML = str;
+};
+// função pra retornar msg jogadores
 
 // função pra mover peças
 const movePeca = (event) => {
@@ -121,10 +123,16 @@ const movePeca = (event) => {
                 celula.appendChild(peca);
                 numero = 2;
                 i = filhos.length;
+                setTimeout(function() {
+                    retorno(`${document.getElementById("jogador1").value}, agora é a sua vez!`)
+                }, 1000);
             } else {
                 celula.appendChild(peca);
                 numero = 1;
                 i = filhos.length;
+                setTimeout(function() {
+                    retorno(`${document.getElementById("jogador2").value}, agora é a sua vez!`)
+                }, 1000);
             }
             mapa[indiceColuna][indiceLinha] = numero;
             primeiro++;
@@ -136,11 +144,38 @@ const movePeca = (event) => {
 
 // função que verifica vitoria
 const verificaVitoria = (iCol, iLin) => {
-    verificaHorizontal(iCol, iLin);
-    verificaVertical(iCol, iLin);
-    verificaDiagonalEsqDir(iCol, iLin);
-    verificaDiagonalDirEsq(iCol, iLin);
-    // verificaEmpate(mapa);
+    let pontos = 0;
+    if (verificaHorizontal(iCol, iLin)) {
+        pontos += 2;
+    };
+    if (verificaVertical(iCol, iLin)) {
+        pontos += 2;
+    };
+    if (verificaDiagonalEsqDir(iCol, iLin)) {
+        pontos += 4;
+    };
+    if (verificaDiagonalDirEsq(iCol, iLin)) {
+        pontos += 4;
+    };
+    if (pontos !== 0) {
+        let jogador = mapa[iCol][iLin];
+        let input = "";
+        if (jogador === 1) {
+            input = document.getElementById("jogador1").value;
+            console.log(input, pontos)
+        } else {
+            input = document.getElementById("jogador2").value;
+            console.log(input, pontos)
+        }
+        setTimeout(function() {
+            mensagemVitoria(true, input, pontos)
+        }, 2000);
+    };
+    if (pontos === 0 && verificaEmpate(mapa)) {
+        setTimeout(function() {
+            mensagemVitoria(false, input, pontos)
+        }, 2000);
+    }
 };
 // função que verifica vitoria
 
@@ -152,7 +187,7 @@ const verificaHorizontal = (iCol, iLin) => {
         if (mapa[i][iLin] === jogador) {
             contador++;
             if (contador === 4) {
-                console.log("vencedor horizontal")
+                return true;
             }
         } else {
             contador = 0;
@@ -169,7 +204,7 @@ const verificaVertical = (iCol, iLin) => {
         if (mapa[iCol][i] === jogador) {
             contador++;
             if (contador === 4) {
-                console.log("vencedor vertical")
+                return true;
             }
         } else {
             contador = 0;
@@ -195,7 +230,7 @@ const verificaDiagonalEsqDir = (iCol, iLin) => {
         if (jogador === mapa[iColInicial][iLinInicial]) {
             contador++;
             if (contador === 4) {
-                console.log("vencedor diagonal esq-->dir")
+                return true;
             }
         } else {
             contador = 0;
@@ -223,7 +258,7 @@ const verificaDiagonalDirEsq = (iCol, iLin) => {
         if (jogador === mapa[iColInicial][iLinInicial]) {
             contador++;
             if (contador === 4) {
-                console.log("vencedor diagonal dir->esq");
+                return true;
             }
         } else {
             contador = 0;
@@ -238,42 +273,25 @@ const verificaDiagonalDirEsq = (iCol, iLin) => {
 // função que verifica diagonal dir->esq
 
 // função que verifica empate
-// const verificaEmpate = (mapa) => { //se na primeira linha[0] do mapa, todos os endereços de coluna forem diferentes de zero e ainda nnão tem vencedor, logo, empate
-//     if (mapa[0].every((i) => i !== '0')) {
-//         checaEmpate = true;
-//     }
-// };
+const verificaEmpate = (mapa) => {
+    let contador = 0;
+    for (let i = 0; i < mapa.length; i++) {
+        for (let j = 0; j < mapa[0].length; j++) {
+            if (mapa[i][j] === 0) {
+                contador++;
+            }
+        }
+    }
+    if (contador === 0) {
+        return true;
+    }
+};
 // função que verifica empate
 
-// const declaraVitoria = () => {
-// }
-// if (primeiro % 2 === 0) {
-// } else if (primeiro % 2 !== 0) {
-// };
-
-
-// if (vitoriaHorizontal || vitoriaVertical || vitoriaDiagonal) {
-//     if (vitoriaHorizontal && !vitoriaVertical && !vitoriaDiagonal) {
-//         document.getElementById("msgRetorno").innerHTML = "Vitória por Linha";
-//     }
-//     if (!vitoriaHorizontal && vitoriaVertical && !vitoriaDiagonal) {
-//         document.getElementById("msgRetorno").innerHTML = "Vitória por Coluna";
-//     }
-//     if (!vitoriaHorizontal && !vitoriaVertical && vitoriaDiagonal) {
-//         document.getElementById("msgRetorno").innerHTML = "Vitória por Diagonal";
-//     }
-//     if (vitoriaHorizontal && vitoriaVertical && !vitoriaDiagonal) {
-//         document.getElementById("msgRetorno").innerHTML = "Vitória por Linha e Coluna";
-//     }
-//     if (vitoriaHorizontal && !vitoriaVertical && vitoriaDiagonal) {
-//         document.getElementById("msgRetorno").innerHTML = "Vitória por Linha e Diagonal";
-//     }
-//     if (!vitoriaHorizontal && vitoriaVertical && vitoriaDiagonal) {
-//         document.getElementById("msgRetorno").innerHTML = "Vitória por Coluna e Diagonal";
-//     }
-//     if (vitoriaHorizontal && vitoriaVertical && vitoriaDiagonal) {
-//         document.getElementById("msgRetorno").innerHTML = "Vitória por Linha, Coluna e Diagonal";
-//     } else {
-//         document.getElementById("msgRetorno").innerHTML = "Temos um empate!";
-//     }
-// };
+const mensagemVitoria = (vencedor, input, pontos) => {
+    if (vencedor) {
+        retorno(`Parabens ${input} você venceu com ${pontos} pontos`);
+    } else {
+        retorno("Houve empate!");
+    }
+};
