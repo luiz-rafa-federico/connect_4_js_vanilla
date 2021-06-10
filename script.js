@@ -48,6 +48,33 @@ document.getElementById('btn_recomecar').addEventListener('click', () => {
 });
 //handler RESET JOGO
 
+
+//Mensagem de vitoria
+
+const mensagemVitoria = (vencedor, input, pontos) => {
+    const modal = document.getElementById('modalID');
+    modal.classList.add('mostrar')
+    if (vencedor) {
+        document.getElementById('som_vitoria').play()
+        modal.innerText=`Parabens ${input} você venceu com ${pontos} pontos`
+    } else {
+        modal.innerText=("Houve empate!")
+    }
+};
+
+//Mensagem de vitoria
+
+//teste modal
+function iniciaModal(modalID){
+    const modal = document.getElementById(modalID);
+    modal.classList.add('mostrar')
+}
+
+iniciaModal('modal-vitoria')
+
+//teste modal
+
+
 // Construindo tabela
 const gerarTabela = () => {
     for (let i = 0; i < mapa.length; i++) {
@@ -107,6 +134,7 @@ const gerarPecas = () => {
 
 // função pra mover peças
 const movePeca = (event) => {
+    document.getElementById('somMove').play()
     let colunaClicada = event.currentTarget;
     let filhos = colunaClicada.children;
     for (let i = 0; i < filhos.length; i++) {
@@ -152,7 +180,10 @@ const verificaHorizontal = (iCol, iLin) => {
         if (mapa[i][iLin] === jogador) {
             contador++;
             if (contador === 4) {
-                console.log("vencedor horizontal")
+                setTimeout(function() {
+                    vitoria();
+                }, 2100);
+                //console.log("vencedor horizontal")
             }
         } else {
             contador = 0;
