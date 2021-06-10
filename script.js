@@ -14,7 +14,6 @@ const msgRetorno = document.getElementById("msgRetorno");
 //handler para botao jogar
 const btn_jogar = document.getElementById("btn_jogar")
 btn_jogar.disabled = false;
-
 btn_jogar.addEventListener("click", () => {
     document.querySelector(".regra1").style.display = 'none';
     document.querySelector(".regra2").style.display = 'none';
@@ -29,6 +28,26 @@ btn_jogar.addEventListener("click", () => {
 });
 //handler para botao jogar
 
+// handler RESET JOGO
+document.getElementById('btn_recomecar').addEventListener('click', () => {
+    btn_jogar.disabled = false;
+    let pecasJog1 = document.querySelector('#pecasJogador1');
+    let pecasJog2 = document.querySelector('#pecasJogador2');
+    pecasJog1.innerText = "";
+    pecasJog2.innerText = "";
+
+    document.querySelector('#tabela').innerHTML = "";
+    for (let i = 0; i < mapa.length; i++) {
+        for (let j = 0; j < mapa[i].length; j++) {
+            mapa[i][j] = 0;
+        }
+    }
+    document.getElementById("myForm").reset();
+    document.querySelector('#msgRetorno').innerHTML = "";
+    btn_jogar.innerText = 'Jogar Novamente!'
+});
+//handler RESET JOGO
+
 // Construindo tabela
 const gerarTabela = () => {
     for (let i = 0; i < mapa.length; i++) {
@@ -39,7 +58,7 @@ const gerarTabela = () => {
         divLinha.id = `${i}`;
         tabela.appendChild(divLinha);
         for (let j = 0; j < mapa[i].length; j++) {
-            quadrado = document.createElement('div');
+            let quadrado = document.createElement('div');
             quadrado.classList.add('quadrado');
             divLinha.appendChild(quadrado);
         }
@@ -109,179 +128,153 @@ const movePeca = (event) => {
             }
             mapa[indiceColuna][indiceLinha] = numero;
             primeiro++;
-            verificaVitoria();
+            verificaVitoria(Number(indiceColuna), Number(indiceLinha));
         }
     }
 };
 //função pra mover peças
 
-// console.log(`Coluna: ${indiceColuna}`, `Linha: ${indiceLinha}`);
-// console.log(mapa)
+// função que verifica vitoria
+const verificaVitoria = (iCol, iLin) => {
+    verificaHorizontal(iCol, iLin);
+    verificaVertical(iCol, iLin);
+    verificaDiagonalEsqDir(iCol, iLin);
+    verificaDiagonalDirEsq(iCol, iLin);
+    // verificaEmpate(mapa);
+};
+// função que verifica vitoria
 
-const verificaVitoria = () => {
-    // André e Priscila, deixei aqui pra chamar só uma função dentro da função
-    // movePeca, aí dentro dessa função aqui vcs podem chamar todas as funçoes q 
-    // verificam vitória
-    console.log('1 click')
-}
-
-// Condição de vitória (sem array de possibilidades)
-// let vitoriaHorizontal = false;
-// let vitoriaVertical = false;
-// let vitoriaDiagonal = false;
-// André e Priscila, comentei estas 3 linhas pois estavam quebrando o codigo
-// estão definindo variáveis aqui em cima, e depois estão definindo como
-// função novamente, não apaguei pra vocês não ficarem perdidos depois
-// mas dêem uma olhada nisso...
-
-
-const vitoriaHorizontal = () => {
-
-    for (let j = 0; j < 7; j++) { //itera nas 6 colunas de j = 0 a j = 6
-        let contador = 1;
-        let contagemAtual = mapa[0][j]; //para cada coluna j na linha i = 0 do mapa, o contador vale 1
-        for (let i = 1; i < 7; i++) { //  itera em 5 (a 6 é para não dar conflito) linhas. 
-            if (contagemAtual === mapa[i][j]) { // Se na mesma linha i, com j diferente, os valores forem idênticos,
-                contador++; // contador+1
-                if (contador === 4) { // se repetir 4x
-                    vitoriaHorizontal = true; //vitoriaHorizontal passa a ser true
-                    break; // a verificação para
-                }
-            } else {
-                contagemAtual = mapa[i][j]; // se não for igual, continua a contar como 1
-                contador = 1;
+// função que verifica horizontal
+const verificaHorizontal = (iCol, iLin) => {
+    let jogador = mapa[iCol][iLin];
+    let contador = 0;
+    for (let i = 0; i < mapa.length; i++) {
+        if (mapa[i][iLin] === jogador) {
+            contador++;
+            if (contador === 4) {
+                console.log("vencedor horizontal")
             }
-        }
-    }
-}
-
-
-const vitoriaVertical = () => {
-
-    for (let i = 0; i < 7; i++) { //  itera em 5 (a 6 é para não dar conflito, já que i !== j) linhas. 
-        let contador = 1;
-        let contagemAtual = mapa[i][0]; //para cada linha i na coluna j = 0 do mapa, o contador vale 1
-        for (let j = 1; j < 7; j++) { //itera nas 6 colunas de j = 0 a j = 6
-            if (contagemAtual === mapa[i][j]) { // Se na mesma coluna j, com i diferente, os valores forem idênticos,
-                contador++; //contador+1
-                if (contador === 4) { // se repetir 4x
-                    vitoriaVertical = true; //vitoriaVertical passa a ser true
-                    break; // a verificação para
-                }
-            } else {
-                contagemAtual = mapa[i][j]; // se não for igual, continua a contar como 1
-                contador = 1;
-            }
-        }
-    }
-}
-
-const vitoriaDiagonal1 = () => {
-    // Da esquerda para a direita
-    for (let j = 0; j < 4; j++) { //  itera nas colunas de j = 0 a j = 3
-        for (let i = 0; i < 4; j++) { //  itera nas linhas de i = 0 a i = 3
-            let contador = 1;
-            let contagemAtual = mapa[i][j];
-            // a ideia é dar +1 para baixo e +1 para direita para formar a linha diagonal => \
-            for (let k = 1; k < 3; k++) { // criou -se uma iteração para somar 1 e 2. Para estender o alcance das combinações de i, j = 0 até i, j = 5, sobrando apenas a coluna j = 6.
-                if (contagemAtual === mapa[i + k][j + k]) { //soma 1 e 2 a cada endereço de linha e coluna, formando diagonal. SE forem iguais,
-                    contador++; //contador +1
-                    if (contador === 4) { // se repetir 4x
-                        vitoriaDiagonal = true; // vitóriadiagonal1 passa a ser true
-                        break; // a verificação para
-                    }
-                }
-            }
-        }
-    }
-}
-
-const vitoriaDiagonal2 = () => {
-    // Da direita para a esquerda
-    for (let j = 4; j > 7; j++) { //  itera nas colunas de j = 4 a j = 6
-        for (let i = 0; i < 4; j++) { //  itera nas linhas de i = 0 a i = 3
-            let contador = 1;
-            let contagemAtual = mapa[i][j];
-            // a ideia é dar +1 para baixo e +1 para esquerda para formar a linha diagonal inversa => /
-            for (let k = 1; k < 3; k++) { // criou -se uma iteração para somar 1 e 2. Para estender o alcance das combinações de i=0 e j=6 até i=5 e j=2, sobrando apenas as coluna j = 0 e 1. POrém, como há 4 colunas de interseção com as 6 linhas, todas as combinações passam a ser possíveis com as duas funções diagonais.
-                if (contagemAtual === mapa[i + k][j - k]) { //soma 1 e 2 para cada endereço de linha e subtrai 1 e 2 para cada endereço de coluna, formando diagonal. SE forem iguais,
-                    contador++; //contador+1
-                    if (contador === 4) { // se repetir 4x
-                        vitoriaDiagonal = true; // vitóriadiagonal2 passa a ser true
-                        break; // a verificação para
-                    }
-                }
-            }
-        }
-    }
-}
-
-const vitoriaDiagonal = () => { //vitória na diagonal é composta pelas duas funções
-    vitoriaDiagonal1();
-    vitoriaDiagonal2();
-}
-
-const empate = (mapa) => { //se na primeira linha[0] do mapa, todos os endereços de coluna forem diferentes de zero e ainda nnão tem vencedor, logo, empate
-    return mapa[0].every((j) => j !== '0');
-}
-
-const declaraVitoria = () => {
-    vitoriaHorizontal();
-    vitoriaVertical();
-    vitoriaDiagonal();
-    empate(mapa);
-
-    if (vitoriaHorizontal || vitoriaVertical || vitoriaDiagonal) {
-        if (vitoriaHorizontal && !vitoriaVertical && !vitoriaDiagonal) {
-            document.getElementById("msgRetorno").innerHTML = "Vitória por Linha";
-        }
-        if (!vitoriaHorizontal && vitoriaVertical && !vitoriaDiagonal) {
-            document.getElementById("msgRetorno").innerHTML = "Vitória por Coluna";
-        }
-        if (!vitoriaHorizontal && !vitoriaVertical && vitoriaDiagonal) {
-            document.getElementById("msgRetorno").innerHTML = "Vitória por Diagonal";
-        }
-        if (vitoriaHorizontal && vitoriaVertical && !vitoriaDiagonal) {
-            document.getElementById("msgRetorno").innerHTML = "Vitória por Linha e Coluna";
-        }
-        if (vitoriaHorizontal && !vitoriaVertical && vitoriaDiagonal) {
-            document.getElementById("msgRetorno").innerHTML = "Vitória por Linha e Diagonal";
-        }
-        if (!vitoriaHorizontal && vitoriaVertical && vitoriaDiagonal) {
-            document.getElementById("msgRetorno").innerHTML = "Vitória por Coluna e Diagonal";
-        }
-        if (vitoriaHorizontal && vitoriaVertical && vitoriaDiagonal) {
-            document.getElementById("msgRetorno").innerHTML = "Vitória por Linha, Coluna e Diagonal";
         } else {
-            document.getElementById("msgRetorno").innerHTML = "Temos um empate!";
+            contador = 0;
         }
     }
+};
+// função que verifica horizontal
+
+// função que verifica vertical
+const verificaVertical = (iCol, iLin) => {
+    let jogador = mapa[iCol][iLin];
+    let contador = 0;
+    for (let i = 0; i < mapa[0].length; i++) {
+        if (mapa[iCol][i] === jogador) {
+            contador++;
+            if (contador === 4) {
+                console.log("vencedor vertical")
+            }
+        } else {
+            contador = 0;
+        }
+    }
+};
+// função que verifica vertical
+
+// função que verifica diagonal esq-->dir
+const verificaDiagonalEsqDir = (iCol, iLin) => {
+    let jogador = mapa[iCol][iLin];
+    let iColInicial = iCol - iLin;
+    if (iColInicial < 0) {
+        iColInicial = 0;
+    };
+    let iLinInicial = iLin - iCol;
+    if (iLinInicial < 0) {
+        iLinInicial = 0;
+    };
+    let contador = 0;
+    let condicao = true;
+    while (condicao) {
+        if (jogador === mapa[iColInicial][iLinInicial]) {
+            contador++;
+            if (contador === 4) {
+                console.log("vencedor diagonal esq-->dir")
+            }
+        } else {
+            contador = 0;
+        }
+        iColInicial++;
+        iLinInicial++;
+        if (iColInicial > 6 || iLinInicial > 5) {
+            condicao = false;
+        }
+    }
+};
+// função que verifica diagonal esq-->dir
+
+// função que verifica diagonal dir->esq
+const verificaDiagonalDirEsq = (iCol, iLin) => {
+    let jogador = mapa[iCol][iLin];
+    let iColInicial = iCol + iLin;
+    if (iColInicial > 6) {
+        iColInicial = 6;
+    }
+    let iLinInicial = (iLin + iCol) - iColInicial;
+    let contador = 0;
+    let condicao = true;
+    while (condicao) {
+        if (jogador === mapa[iColInicial][iLinInicial]) {
+            contador++;
+            if (contador === 4) {
+                console.log("vencedor diagonal dir->esq");
+            }
+        } else {
+            contador = 0;
+        }
+        iColInicial--;
+        iLinInicial++;
+        if (iColInicial < 0 || iLinInicial > 5) {
+            condicao = false;
+        }
+    }
+};
+// função que verifica diagonal dir->esq
+
+// função que verifica empate
+// const verificaEmpate = (mapa) => { //se na primeira linha[0] do mapa, todos os endereços de coluna forem diferentes de zero e ainda nnão tem vencedor, logo, empate
+//     if (mapa[0].every((i) => i !== '0')) {
+//         checaEmpate = true;
+//     }
+// };
+// função que verifica empate
+
+// const declaraVitoria = () => {
+// }
+// if (primeiro % 2 === 0) {
+// } else if (primeiro % 2 !== 0) {
+// };
+
+
+// if (vitoriaHorizontal || vitoriaVertical || vitoriaDiagonal) {
+//     if (vitoriaHorizontal && !vitoriaVertical && !vitoriaDiagonal) {
+//         document.getElementById("msgRetorno").innerHTML = "Vitória por Linha";
+//     }
+//     if (!vitoriaHorizontal && vitoriaVertical && !vitoriaDiagonal) {
+//         document.getElementById("msgRetorno").innerHTML = "Vitória por Coluna";
+//     }
+//     if (!vitoriaHorizontal && !vitoriaVertical && vitoriaDiagonal) {
+//         document.getElementById("msgRetorno").innerHTML = "Vitória por Diagonal";
+//     }
+//     if (vitoriaHorizontal && vitoriaVertical && !vitoriaDiagonal) {
+//         document.getElementById("msgRetorno").innerHTML = "Vitória por Linha e Coluna";
+//     }
+//     if (vitoriaHorizontal && !vitoriaVertical && vitoriaDiagonal) {
+//         document.getElementById("msgRetorno").innerHTML = "Vitória por Linha e Diagonal";
+//     }
+//     if (!vitoriaHorizontal && vitoriaVertical && vitoriaDiagonal) {
+//         document.getElementById("msgRetorno").innerHTML = "Vitória por Coluna e Diagonal";
+//     }
+//     if (vitoriaHorizontal && vitoriaVertical && vitoriaDiagonal) {
+//         document.getElementById("msgRetorno").innerHTML = "Vitória por Linha, Coluna e Diagonal";
+//     } else {
+//         document.getElementById("msgRetorno").innerHTML = "Temos um empate!";
+//     }
+// };
 }
-
-// Condição de vitória (sem array de possibilidades)
-
-//RESET JOGO
-document.getElementById('btn_recomecar').addEventListener('click', () => {
-    btn_jogar.disabled = false;
-    let pecasJog1 = document.querySelector('#pecasJogador1');
-    let pecasJog2 = document.querySelector('#pecasJogador2');
-    pecasJog1.innerText = "";
-    pecasJog2.innerText = "";
-   
-    document.querySelector('#tabela').innerHTML = "";
-    for(let i = 0; i < mapa.length; i++) {
-        for(let j = 0; j < mapa[i].length; j++) {
-            mapa[i][j] = 0;
-        }
-    }
-    document.getElementById("myForm").reset();
-    document.querySelector('#msgRetorno').innerHTML = "";
-    btn_jogar.innerText = 'Jogar Novamente!'
-});
-//RESET JOGO
-
-
-
-
-
-  
