@@ -277,4 +277,3 @@ const verificaDiagonalDirEsq = (iCol, iLin) => {
 //         document.getElementById("msgRetorno").innerHTML = "Temos um empate!";
 //     }
 // };
-}
