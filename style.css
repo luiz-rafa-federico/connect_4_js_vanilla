@@ -30,7 +30,7 @@ html {
    --tamanhoPecas: 20px;
    --tamanhoPecas-desktop: 40px;
    --tamanhoQuadrado: 22px;
-   --tamanhoQuadrado-desktop: 44px;
+   --tamanhoQuadrado-desktop: 43px;
    --larguraTabelaDesktop: 264px;
 }
  
@@ -96,7 +96,13 @@ h1 {
    color: var(--btnFontColor);
    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
- 
+
+.btn-jogar:hover,
+.btn-reset:hover {
+   background-color: var(--btnFontColor);
+   color: var(--btnBkgdColor)
+}
+
 .separador {
    display: flex;
    flex-direction: column;
@@ -128,7 +134,7 @@ h1 {
    width: var(--larguraTabela);
    display: flex;
    margin: 1px;
-   border: 1px solid var(--divLinhaCor);
+   /* border: 1px solid var(--divLinhaCor); */
 }
  
 #msgRetorno {
@@ -173,35 +179,49 @@ h1 {
 }
  
 #pecasJogador1 {
-   width: 10%;
+   width: 12%;
    height: 100%;
    display: flex;
    flex-wrap: wrap;
    justify-content: center;
+   margin-left: 10px;
    align-items: center;
+
 }
  
 .pecaJogador1 {
-   background-color: var(--corJog1);
+     background: black;
+
+  background: radial-gradient(circle at 40px 40px, var(--corJog1), #1fc25b);
+   /* background-color: var(--corJog1); */
    border-radius: 50%;
 }
  
-.jogNome1,
+.jogNome1{
+   width: 100%;
+   text-align: center;
+}
+
 .jogNome2 {
    width: 100%;
    text-align: center;
 }
  
 #pecasJogador2 {
-   width: 10%;
+   width: 12%;
    height: 100%;
    display: flex;
    flex-wrap: wrap;
    justify-content: center;
+   margin-right: 10px;
+   align-items: center;
 }
  
 .pecaJogador2 {
-   background-color: var(--corJog2);
+
+  background: black;
+  background: radial-gradient(circle at 40px 40px, var(--corJog2), #af1899);
+   /* background-color: var(--corJog2); */
    border-radius: 50%;
 }
  
@@ -212,19 +232,22 @@ h1 {
    transition-timing-function: ease-in-out;
 }
 
-/* div.quadrado:nth-child(even){
-    background-image: url("../lig-4/madeira1.png");
-    background-size:cover;
+div.quadrado:nth-child(even){
+    background-image: url("../lig-4/square.svg");
+    background-size:100% 100%;
     background-repeat:no-repeat;
     /* -webkit-transform: rotate(90deg); */
-/* }
+    text-align: center;
+   text-align: -webkit-center;
+}
 div.quadrado:nth-child(odd){
-    background-image: url("../lig-4/madeira2.jpg");
-    background-size:cover;
-    background-repeat:no-repeat; */
+    background-image: url("../lig-4/square.svg");
+    background-size:100% 100%;
+    background-repeat:no-repeat;
     /* -webkit-transform: rotate(90deg); */
-
-/* } */
+    text-align: center;
+   text-align: -webkit-center;
+}
 
 /* div#tabela{
     background-image: url("../lig-4/connect-4-wood-2.png");
@@ -239,14 +262,12 @@ div.quadrado:nth-child(odd){
 .placar-conteudo{
     background-color: #fff;
     border-radius: 10px;
-  
-    padding: 20px 30px;
+    padding: 5px 10px;
     text-align: center;
   }
   
   .placar-conteudo span{
     color: hsl(229, 25%, 31%);
-    font-size: 3.5rem;
     font-weight: 700;
     margin: 0;
   }
@@ -254,11 +275,13 @@ div.quadrado:nth-child(odd){
   .placar{
     display: flex;
     justify-content: space-around;
+    display: flex;
+    margin-top: 100px;
+    margin-bottom: 0px;
   }
 
   h4{
     color: hsl(229, 64%, 46%);
-    text-transform: uppercase;
     letter-spacing: 4px;
     margin: 0;
   }
@@ -290,16 +313,118 @@ footer p {
 }
 /* css para conteúdo dinâmico */
  
-@media screen and (min-width: 450px) and (max-width: 768px) {
+@media screen and (min-width: 405px) and (max-width: 419px){
    .separador {
-      width: 60%;
-      flex-wrap: wrap;
-      text-align: center;
-      flex-direction: row;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   border: 1px dotted var(--border);
+   border-radius: 4px;
+   width: 90%;
+   padding: 20px;
+   text-align: center;
+   justify-content: center;
    }
 }
- 
-@media screen and (min-width: 1024px) {
+
+@media screen and (min-width: 420px) and (max-width: 692px) {
+   .separador {
+      width: 60%;
+      flex-direction: row;
+      align-items: center;
+      border: 1px dotted var(--border);
+      border-radius: 4px;
+      width: 90%;
+      padding: 20px;
+      text-align: center;
+      justify-content: center;
+   }
+   .placar-conteudo{
+    background-color: #fff;
+    border-radius: 10px;
+  
+    padding: 20px 30px;
+    text-align: center;
+  }
+  
+  .placar-conteudo span{
+    color: hsl(229, 25%, 31%);
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin: 0;
+  }
+  
+  .placar{
+    display: flex;
+    justify-content: space-around;
+  }
+}
+
+@media screen and (min-width: 693px) and (max-width: 737px) {
+   .separador {
+      width: 60%;
+
+      align-items: center;
+      border: 1px dotted var(--border);
+      border-radius: 4px;
+      padding: 20px;
+      text-align: center;
+      justify-content: center;
+   }
+   .placar-conteudo{
+    background-color: #fff;
+    border-radius: 10px;
+  
+    padding: 20px 30px;
+    text-align: center;
+  }
+  
+  .placar-conteudo span{
+    color: hsl(229, 25%, 31%);
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin: 0;
+  }
+  
+  .placar{
+    display: flex;
+    justify-content: space-around;
+  }
+}
+
+@media screen and (min-width: 738px) and (max-width: 757px) {
+   .separador {
+      align-items: center;
+      border: 1px dotted var(--border);
+      border-radius: 4px;
+      padding: 20px;
+      text-align: center;
+      justify-content: center;
+      flex-direction: row;
+      width: 60%;
+   }
+      .placar-conteudo{
+    background-color: #fff;
+    border-radius: 10px;
+  
+    padding: 20px 30px;
+    text-align: center;
+  }
+  
+  .placar-conteudo span{
+    color: hsl(229, 25%, 31%);
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin: 0;
+  }
+  
+  .placar{
+    display: flex;
+    justify-content: space-around;
+  }
+}
+
+@media screen and (min-width: 758px) {
   main {
       margin: auto;
   }
@@ -338,5 +463,24 @@ footer p {
 #msgRetorno {
     margin-bottom: 100px;
 }
+.placar-conteudo{
+    background-color: #fff;
+    border-radius: 10px;
+  
+    padding: 20px 30px;
+    text-align: center;
+  }
+  
+  .placar-conteudo span{
+    color: hsl(229, 25%, 31%);
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin: 0;
+  }
+  
+  .placar{
+    display: flex;
+    justify-content: space-around;
+  }
 
 }
