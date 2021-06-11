@@ -17,10 +17,9 @@ btn_jogar.addEventListener("click", () => {
     document.querySelector(".regra1").style.display = 'none';
     document.querySelector(".regra2").style.display = 'none';
     document.querySelector(".regra3").style.display = 'none';
-    document.querySelector(".placar").style.display = 'flex';
+    //document.querySelector(".placar").style.display = 'flex';
     const containerJogo = document.getElementById("jogo");
     containerJogo.classList.remove("displayNone");
-
     setTimeout(function() {
         gerarTabela();
         gerarPecas();
@@ -49,28 +48,37 @@ document.getElementById('btn_recomecar').addEventListener('click', reset = () =>
 //handler RESET JOGO
 
 //handler de botão modal
-const jogarNovamente = document.getElementsByClassName('jogar-novamente')
-jogarNovamente.addEventListener("click", () => {
-    const modalContainer = document.getElementsByClassName('modal-container')
-    modalContainer.classList.toggle('displayNone')
-    //reset()
-})
+
+// const jogarNovamente = document.getElementsByClassName('jogar-novamente')
+// jogarNovamente.addEventListener("click", function() {
+//     const modalContainer = document.getElementsByClassName('modal-container')
+//     modalContainer.classList.toggle('displayNone')
+//     reset();
+// })
 
 //handler de botão modal
 
 //Mensagem de vitoria
 
 const mensagemVitoria = (vencedor, input, pontos) => {
-    const modal = document.getElementById('modal-vitoria');
-    modal.classList.toggle('displayNone')
-    const titulo = document.getElementsByClassName('titulo');
     if (vencedor) {
         document.getElementById('som_vitoria').play()
-        titulo.innerText=`Parabens ${input} você venceu com ${pontos} pontos`
+        retorno(`Parabéns ${input} você venceu com ${pontos} pontos!`);
     } else {
-        titulo.innerText=("Vocês empataram...jogue novamente")
+        retorno("Vocês empataram! Jogue novamente...");
     }
 };
+// const mensagemVitoria = (vencedor, input, pontos) => {
+//     const modal = document.getElementById('modal-vitoria');
+//     modal.classList.toggle('displayNone')
+//     const titulo = document.getElementsByClassName('titulo');
+//     if (vencedor) {
+//         document.getElementById('som_vitoria').play()
+//         titulo.innerText = `Parabens ${input} você venceu com ${pontos} pontos`
+//     } else {
+//         titulo.innerText = ("Vocês empataram...jogue novamente")
+//     }
+// };
 
 //Mensagem de vitoria
 
@@ -323,4 +331,3 @@ const verificaEmpate = (mapa) => {
     }
 };
 // função que verifica empate
-
