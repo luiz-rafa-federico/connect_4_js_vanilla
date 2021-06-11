@@ -11,6 +11,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -55,10 +57,11 @@
         <audio src="audios/win.wav" id="som_vitoria"></audio>
         <audio src="audios/som-movepeca.wav" id="somMove"></audio>
 
-        <div id="modal-vitoria" class="modal-container">
-            <div class="modal"></div>
-                <button class="fechar">x</button>
+        <div id="modal-vitoria" class="modal-container displayNone">
+            <div class="modal">
                 <h3 class="titulo">Parabéns! você venceu</h3>
+                <button class="jogar-novamente">Jogar novamente</button>
+            </div>
         </div>
     </main>
     <script src="script.js"></script>

@@ -29,7 +29,7 @@ btn_jogar.addEventListener("click", () => {
 //handler para botao jogar
 
 // handler RESET JOGO
-document.getElementById('btn_recomecar').addEventListener('click', () => {
+document.getElementById('btn_recomecar').addEventListener('click', reset = () => {
     btn_jogar.disabled = false;
     let pecasJog1 = document.querySelector('#pecasJogador1');
     let pecasJog2 = document.querySelector('#pecasJogador2');
@@ -48,31 +48,31 @@ document.getElementById('btn_recomecar').addEventListener('click', () => {
 });
 //handler RESET JOGO
 
+//handler de botão modal
+const jogarNovamente = document.getElementsByClass('jogar-novamente')
+jogarNovamente.addEventListener("click", () => {
+    const modalContainer = document.getElementsByClassName('modal-container')
+    modalContainer.classList.toggle('displayNone')
+    reset()
+})
+
+//handler de botão modal
 
 //Mensagem de vitoria
 
 const mensagemVitoria = (vencedor, input, pontos) => {
-    const modal = document.getElementById('modalID');
-    modal.classList.add('mostrar')
+    const modal = document.getElementById('modal-vitoria');
+    modal.classList.toggle('displayNone')
+    const titulo = document.getElementsByClassName('titulo');
     if (vencedor) {
         document.getElementById('som_vitoria').play()
-        modal.innerText=`Parabens ${input} você venceu com ${pontos} pontos`
+        titulo.innerText=`Parabens ${input} você venceu com ${pontos} pontos`
     } else {
-        modal.innerText=("Houve empate!")
+        titulo.innerText=("Vocês empataram...jogue novamente")
     }
 };
 
 //Mensagem de vitoria
-
-//teste modal
-function iniciaModal(modalID){
-    const modal = document.getElementById(modalID);
-    modal.classList.add('mostrar')
-}
-
-iniciaModal('modal-vitoria')
-
-//teste modal
 
 
 // Construindo tabela
