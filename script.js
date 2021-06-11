@@ -1,4 +1,3 @@
-// Variáveis globais
 const mapa = [
     [0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0],
@@ -8,16 +7,15 @@ const mapa = [
     [0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0]
 ];
-// Variáveis globais
+
 document.querySelector(".placar").style.display = 'none';
-//handler para botao jogar
 const btn_jogar = document.getElementById("btn_jogar")
 btn_jogar.disabled = false;
 btn_jogar.addEventListener("click", () => {
     document.querySelector(".regra1").style.display = 'none';
     document.querySelector(".regra2").style.display = 'none';
     document.querySelector(".regra3").style.display = 'none';
-    //document.querySelector(".placar").style.display = 'flex';
+    document.querySelector(".placar").style.display = 'flex';
     const containerJogo = document.getElementById("jogo");
     containerJogo.classList.remove("displayNone");
     setTimeout(function() {
@@ -26,9 +24,7 @@ btn_jogar.addEventListener("click", () => {
     }, 500);
     btn_jogar.disabled = true;
 });
-//handler para botao jogar
 
-// handler RESET JOGO
 document.getElementById('btn_recomecar').addEventListener('click', reset = () => {
     btn_jogar.disabled = false;
     let pecasJog1 = document.querySelector('#pecasJogador1');
@@ -41,49 +37,22 @@ document.getElementById('btn_recomecar').addEventListener('click', reset = () =>
             mapa[i][j] = 0;
         }
     }
-    document.getElementById("myForm").reset();
     retorno("");
     btn_jogar.innerText = 'Jogar Novamente!'
 });
-//handler RESET JOGO
-
-//handler de botão modal
-
-// const jogarNovamente = document.getElementsByClassName('jogar-novamente')
-// jogarNovamente.addEventListener("click", function() {
-//     const modalContainer = document.getElementsByClassName('modal-container')
-//     modalContainer.classList.toggle('displayNone')
-//     reset();
-// })
-
-//handler de botão modal
-
-//Mensagem de vitoria
 
 const mensagemVitoria = (vencedor, input, pontos) => {
+    const modal = document.getElementById('modal-vitoria');
+    modal.classList.toggle('displayNone')
+    const titulo = document.getElementById('titulo');
     if (vencedor) {
         document.getElementById('som_vitoria').play()
-        retorno(`Parabéns ${input} você venceu com ${pontos} pontos!`);
+        titulo.innerText = `Parabéns ${input} você venceu com ${pontos} pontos!`
     } else {
-        retorno("Vocês empataram! Jogue novamente...");
+        titulo.innerText = ("Vocês empataram...jogue novamente")
     }
 };
-// const mensagemVitoria = (vencedor, input, pontos) => {
-//     const modal = document.getElementById('modal-vitoria');
-//     modal.classList.toggle('displayNone')
-//     const titulo = document.getElementsByClassName('titulo');
-//     if (vencedor) {
-//         document.getElementById('som_vitoria').play()
-//         titulo.innerText = `Parabens ${input} você venceu com ${pontos} pontos`
-//     } else {
-//         titulo.innerText = ("Vocês empataram...jogue novamente")
-//     }
-// };
 
-//Mensagem de vitoria
-
-
-// Construindo tabela
 const gerarTabela = () => {
     for (let i = 0; i < mapa.length; i++) {
         const tabela = document.getElementById('tabela');
@@ -99,9 +68,7 @@ const gerarTabela = () => {
         }
     }
 };
-// Construindo tabela
 
-//funçao para gerar as peças de cada jogador
 let primeiro = 0;
 const gerarPecas = () => {
     const input1 = document.getElementById("jogador1").value;
@@ -141,16 +108,12 @@ const gerarPecas = () => {
         msgRetorno.innerHTML = `${input2} COMEÇA JOGANDO!`;
     }
 };
-//funçao para gerar as peças de cada jogador
 
-// função pra retornar msg jogadores
 const retorno = (str) => {
     const msgRetorno = document.getElementById("msgRetorno");
     msgRetorno.innerHTML = str;
 };
-// função pra retornar msg jogadores
 
-// função pra mover peças
 const movePeca = (event) => {
     document.getElementById('somMove').play()
     let colunaClicada = event.currentTarget;
@@ -168,14 +131,14 @@ const movePeca = (event) => {
                 numero = 2;
                 i = filhos.length;
                 setTimeout(function() {
-                    retorno(`${document.getElementById("jogador1").value}, agora é a sua vez!`)
+                    retorno(`${document.getElementById("jogador1").value}, AGORA É A SUA VEZ!`)
                 }, 1000);
             } else {
                 celula.appendChild(peca);
                 numero = 1;
                 i = filhos.length;
                 setTimeout(function() {
-                    retorno(`${document.getElementById("jogador2").value}, agora é a sua vez!`)
+                    retorno(`${document.getElementById("jogador2").value}, AGORA É A SUA VEZ!`)
                 }, 1000);
             }
             mapa[indiceColuna][indiceLinha] = numero;
@@ -184,9 +147,7 @@ const movePeca = (event) => {
         }
     }
 };
-//função pra mover peças
 
-// função que verifica vitoria
 const verificaVitoria = (iCol, iLin) => {
     let pontos = 0;
     if (verificaHorizontal(iCol, iLin)) {
@@ -206,24 +167,34 @@ const verificaVitoria = (iCol, iLin) => {
         let input = "";
         if (jogador === 1) {
             input = document.getElementById("jogador1").value;
-            console.log(input, pontos)
+            geraPlacar(jogador, pontos)
         } else {
             input = document.getElementById("jogador2").value;
-            console.log(input, pontos)
+            geraPlacar(jogador, pontos);
         }
         setTimeout(function() {
-            mensagemVitoria(true, input, pontos)
-        }, 2000);
+            mensagemVitoria(true, input, pontos);
+        }, 400);
     };
     if (pontos === 0 && verificaEmpate(mapa)) {
         setTimeout(function() {
-            mensagemVitoria(false, input, pontos)
-        }, 2000);
+            mensagemVitoria(false, input, pontos);
+        }, 400);
     }
 };
-// função que verifica vitoria
 
-// função que verifica horizontal
+let pontuacao1 = 0;
+let pontuacao2 = 0;
+const geraPlacar = (jogador, pontos) => {
+    if (jogador === 1) {
+        pontuacao1 += pontos;
+        document.getElementById("placar--jogador1").innerText = pontuacao1;
+    } else {
+        pontuacao2 += pontos;
+        document.getElementById("placar--jogador2").innerText = pontuacao2;
+    }
+}
+
 const verificaHorizontal = (iCol, iLin) => {
     let jogador = mapa[iCol][iLin];
     let contador = 0;
@@ -238,9 +209,7 @@ const verificaHorizontal = (iCol, iLin) => {
         }
     }
 };
-// função que verifica horizontal
 
-// função que verifica vertical
 const verificaVertical = (iCol, iLin) => {
     let jogador = mapa[iCol][iLin];
     let contador = 0;
@@ -255,9 +224,7 @@ const verificaVertical = (iCol, iLin) => {
         }
     }
 };
-// função que verifica vertical
 
-// função que verifica diagonal esq-->dir
 const verificaDiagonalEsqDir = (iCol, iLin) => {
     let jogador = mapa[iCol][iLin];
     let iColInicial = iCol - iLin;
@@ -286,9 +253,7 @@ const verificaDiagonalEsqDir = (iCol, iLin) => {
         }
     }
 };
-// função que verifica diagonal esq-->dir
 
-// função que verifica diagonal dir->esq
 const verificaDiagonalDirEsq = (iCol, iLin) => {
     let jogador = mapa[iCol][iLin];
     let iColInicial = iCol + iLin;
@@ -314,9 +279,7 @@ const verificaDiagonalDirEsq = (iCol, iLin) => {
         }
     }
 };
-// função que verifica diagonal dir->esq
 
-// função que verifica empate
 const verificaEmpate = (mapa) => {
     let contador = 0;
     for (let i = 0; i < mapa.length; i++) {
@@ -330,4 +293,10 @@ const verificaEmpate = (mapa) => {
         return true;
     }
 };
-// função que verifica empate
+
+const jogarNovamente = document.getElementById("jogarNovamente");
+jogarNovamente.addEventListener("click", function() {
+    const modalContainer = document.getElementById("modal-vitoria");
+    modalContainer.classList.toggle('displayNone');
+    reset();
+});
