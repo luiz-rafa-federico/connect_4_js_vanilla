@@ -30,7 +30,7 @@ btn_jogar.addEventListener("click", () => {
 //handler para botao jogar
 
 // handler RESET JOGO
-document.getElementById('btn_recomecar').addEventListener('click', () => {
+document.getElementById('btn_recomecar').addEventListener('click', reset = () => {
     btn_jogar.disabled = false;
     let pecasJog1 = document.querySelector('#pecasJogador1');
     let pecasJog2 = document.querySelector('#pecasJogador2');
@@ -47,6 +47,33 @@ document.getElementById('btn_recomecar').addEventListener('click', () => {
     btn_jogar.innerText = 'Jogar Novamente!'
 });
 //handler RESET JOGO
+
+//handler de botão modal
+const jogarNovamente = document.getElementsByClassName('jogar-novamente')
+jogarNovamente.addEventListener("click", () => {
+    const modalContainer = document.getElementsByClassName('modal-container')
+    modalContainer.classList.toggle('displayNone')
+    //reset()
+})
+
+//handler de botão modal
+
+//Mensagem de vitoria
+
+const mensagemVitoria = (vencedor, input, pontos) => {
+    const modal = document.getElementById('modal-vitoria');
+    modal.classList.toggle('displayNone')
+    const titulo = document.getElementsByClassName('titulo');
+    if (vencedor) {
+        document.getElementById('som_vitoria').play()
+        titulo.innerText=`Parabens ${input} você venceu com ${pontos} pontos`
+    } else {
+        titulo.innerText=("Vocês empataram...jogue novamente")
+    }
+};
+
+//Mensagem de vitoria
+
 
 // Construindo tabela
 const gerarTabela = () => {
@@ -117,6 +144,7 @@ const retorno = (str) => {
 
 // função pra mover peças
 const movePeca = (event) => {
+    document.getElementById('somMove').play()
     let colunaClicada = event.currentTarget;
     let filhos = colunaClicada.children;
     for (let i = 0; i < filhos.length; i++) {
@@ -296,10 +324,3 @@ const verificaEmpate = (mapa) => {
 };
 // função que verifica empate
 
-const mensagemVitoria = (vencedor, input, pontos) => {
-    if (vencedor) {
-        retorno(`Parabens ${input} você venceu com ${pontos} pontos`);
-    } else {
-        retorno("Houve empate!");
-    }
-};
