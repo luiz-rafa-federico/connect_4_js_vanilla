@@ -175,8 +175,7 @@ const verificaVitoria = (iCol, iLin) => {
         setTimeout(function() {
             mensagemVitoria(true, input, pontos);
         }, 400);
-    };
-    if (verificaEmpate(mapa)) {
+    } else if (verificaEmpate(mapa)) {
         setTimeout(function() {
             mensagemVitoria(false);
         }, 400);
