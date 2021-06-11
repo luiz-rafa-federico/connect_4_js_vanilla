@@ -130,7 +130,6 @@ h1 {
     width: var(--larguraTabela);
     display: flex;
     margin: 1px;
-    border: 1px solid var(--divLinhaCor);
 }
 
 #msgRetorno {
@@ -141,6 +140,7 @@ h1 {
 }
 
 .quadrado {
+    position: relative;
     border: 1px solid var(--border);
     width: var(--tamanhoQuadrado);
     height: var(--tamanhoQuadrado);
@@ -159,6 +159,7 @@ h1 {
 }
 
 .pecas {
+    z-index: 1;
     width: var(--tamanhoPecas);
     height: var(--tamanhoPecas);
     border-radius: 50%;
